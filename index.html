@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SX128x LoRa 2.4 GHz Airtime Calculator</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <p class="eyebrow">SX128x / LoRa 2.4 GHz</p>
+      <h1>Airtime Calculator</h1>
+      <p class="subtitle">
+        Enter packet settings and calculate symbol time, payload symbols, total airtime, and nominal PHY bitrate.
+      </p>
+    </section>
+
+    <section class="card">
+      <form id="airtime-form" class="calculator">
+        <div class="form-grid">
+          <label class="field">
+            <span>Payload bytes</span>
+            <input id="payload" type="number" min="0" max="255" step="1" value="32" required />
+          </label>
+
+          <label class="field">
+            <span>Spreading factor</span>
+            <select id="sf">
+              <option value="5">SF5</option>
+              <option value="6">SF6</option>
+              <option value="7" selected>SF7</option>
+              <option value="8">SF8</option>
+              <option value="9">SF9</option>
+              <option value="10">SF10</option>
+              <option value="11">SF11</option>
+              <option value="12">SF12</option>
+            </select>
+          </label>
+
+          <label class="field">
+            <span>Bandwidth</span>
+            <select id="bw">
+              <option value="203.125">203.125 kHz</option>
+              <option value="406.25">406.25 kHz</option>
+              <option value="812.5" selected>812.5 kHz</option>
+              <option value="1625">1625 kHz</option>
+            </select>
+          </label>
+
+          <label class="field">
+            <span>Coding rate</span>
+            <select id="cr">
+              <option value="1" selected>4/5</option>
+              <option value="2">4/6</option>
+              <option value="3">4/7</option>
+              <option value="4">4/8</option>
+            </select>
+          </label>
+
+          <label class="field">
+            <span>Preamble symbols</span>
+            <input id="preamble" type="number" min="0" step="0.5" value="12" required />
+          </label>
+
+          <div class="switches">
+            <label class="switch-row">
+              <input id="crc" type="checkbox" checked />
+              <span>CRC enabled</span>
+            </label>
+
+            <label class="switch-row">
+              <input id="explicit-header" type="checkbox" checked />
+              <span>Explicit header</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button type="submit">Calculate</button>
+          <button type="button" id="reset-button" class="secondary">Reset defaults</button>
+        </div>
+
+        <p id="error" class="error" role="alert"></p>
+      </form>
+    </section>
+
+    <section class="results card">
+      <div class="results-header">
+        <h2>Results</h2>
+        <p id="summary">Change the inputs and press Calculate.</p>
+      </div>
+
+      <div class="result-grid">
+        <article class="result-box">
+          <span>Symbol time</span>
+          <strong id="symbol-time">—</strong>
+        </article>
+
+        <article class="result-box">
+          <span>Payload symbols</span>
+          <strong id="payload-symbols">—</strong>
+        </article>
+
+        <article class="result-box">
+          <span>Total symbols</span>
+          <strong id="total-symbols">—</strong>
+        </article>
+
+        <article class="result-box highlight">
+          <span>Airtime</span>
+          <strong id="airtime-ms">—</strong>
+          <small id="airtime-s">—</small>
+        </article>
+
+        <article class="result-box">
+          <span>Nominal bitrate</span>
+          <strong id="bitrate">—</strong>
+        </article>
+
+        <article class="result-box">
+          <span>Header mode</span>
+          <strong id="header-mode">—</strong>
+        </article>
+      </div>
+    </section>
+
+    <footer>
+      <p>
+        Formula ported from the Python SX128x LoRa airtime script. This is a static browser calculator and does not send data anywhere.
+      </p>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
